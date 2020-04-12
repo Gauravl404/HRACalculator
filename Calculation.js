@@ -1,11 +1,12 @@
 import React from "react"
+import Button from '@material-ui/core/Button';
 class Calculation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      basicSalary :360000,
+      basicSalary :0,
       daAllowance:0,
-      hra:120000,
+      hra:0,
       rent:0,
       isMetro: false,
       hraAllowed : 0
@@ -53,7 +54,7 @@ class Calculation extends React.Component {
           <input
             name="basicSalary"
             type="number"
-            value={this.state.basicSalary}
+            value={this.state.basicSalary > 0 ?this.state.basicSalary:null}
             onChange={this.handleInputChange} />
         </label>
         <br />
@@ -62,7 +63,7 @@ class Calculation extends React.Component {
           <input
             name="daAllowance"
             type="number"
-            value={this.state.daAllowance}
+            value={this.state.daAllowance > 0 ?this.state.daAllowance:null}
             onChange={this.handleInputChange} />
         </label>
         <br />
@@ -71,7 +72,7 @@ class Calculation extends React.Component {
           <input
             name="hra"
             type="number"
-            value={this.state.hra}
+            value={this.state.hra > 0 ?this.state.hra:null}
             onChange={this.handleInputChange} />
         </label>
         <br />
@@ -101,6 +102,8 @@ class Calculation extends React.Component {
         </label>
         <br />
         </div>}
+
+       
       
       </form>
     );
