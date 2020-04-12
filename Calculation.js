@@ -3,12 +3,12 @@ class Calculation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      basicSalary :0,
+      basicSalary :360000,
       daAllowance:0,
-      hra:0,
+      hra:120000,
       rent:0,
-      isMetro: true
-
+      isMetro: false,
+      hraAllowed : 0
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -17,7 +17,7 @@ class Calculation extends React.Component {
 
   handleInputChange(event) {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = target.type === 'checkbox' ? target.checked : parseInt(target.value);
     const name = target.name;
 
     this.setState({
@@ -26,14 +26,21 @@ class Calculation extends React.Component {
   }
 
   handleClick() {
+    console.log(this.state.basicSalary);
+    console.log(this.state.hra);
 
-    const total = this.state.basicSalary + this.state.daAllowance;
+    const totalSalary = this.state.basicSalary + this.state.daAllowance;
     const factor = this.state.isMetro ? 0.5 : 0.4;
-    const res = total*factor;
-    const hrares = this.state.hra - 0.1*this.state.basicSalary;
+    const totalAllowedHRA = totalSalary * factor;
+    const rent = this.state.hra + (0.1 * this.state.basicSalary);
+    const actualRentPaid = (rent - (0.1 * this.state.basicSalary));
+    console.log(rent);
+    const hraAllowed =  actualRentPaid < totalAllowedHRA ? actualRentPaid : totalAllowedHRA;
+    const finalRent = hraAllowed + (0.1 * this.state.basicSalary);
 
     this.setState({
-      rent: (res<hrares)? res: hrares
+      rent: finalRent,
+      hraAllowed : hraAllowed
     });
   }
 
@@ -87,6 +94,10 @@ class Calculation extends React.Component {
             type="number"
             value={this.state.rent}
              />
+        </label>
+        <br />
+        <label>
+          HRA Allowed : {this.state.hraAllowed}
         </label>
         <br />
         </div>}
