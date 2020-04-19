@@ -1,5 +1,7 @@
 import React from "react"
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
 class Calculation extends React.Component {
   constructor(props) {
     super(props);
@@ -85,7 +87,19 @@ class Calculation extends React.Component {
             onChange={this.handleInputChange} />
         </label>
         <br />
-        <input type = "button" value = "calculate max rent" onClick={this.handleClick}></input>
+        <TextField
+          id="filled-number"
+          label="Number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="filled"
+        />
+    <Button variant="contained" color="primary" onClick={this.handleClick}>
+      calculate max rent
+    </Button>
+        <input type = "button" value = "" ></input>
 
         {this.state.rent > 0 && <div>
         <label>
